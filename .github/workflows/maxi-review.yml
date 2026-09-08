@@ -28,7 +28,26 @@ jobs:
         vars.CI_ENFORCEMENT_MODE == 'strict' ||
         contains(github.event.pull_request.labels.*.name, 'run-maxi-review')
       )
-    runs-on: warp-macos-15-arm64-6x
+    # Was `warp-macos-15-arm64-6x`. That WarpBuild pool no longer exists -- zero
+    # runners in the org carry any `warp-*` label -- and a job whose label
+    # nobody advertises is not rejected by GitHub, it is QUEUED indefinitely
+    # with `runner_name: ""`. It yields no red check and no check result at
+    # all, so this was armed and silent rather than visibly broken.
+    #
+    # The destination is the only thing changed. This stays on macOS rather
+    # than following the canonical template to [self-hosted, Linux, X64]
+    # because THIS COPY's body is macOS-shaped (it prepends
+    # /opt/homebrew/bin to PATH below); retargeting it at Linux would be a
+    # behaviour change riding along with a runner fix. The self-hosted macOS
+    # pool has ample capacity for a lint job.
+    #
+    # This file is a stale copy of maxi-config's distributed maxi-review
+    # template: 290 lines here against 748 canonical, and canonical has been
+    # on [self-hosted, Linux, X64] for some time. Every other repo carrying
+    # this workflow already has the current version, so the real defect is
+    # that distribution skipped this repo -- tracked separately. Resyncing is
+    # the proper fix; this commit only stops the bleeding.
+    runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 10
     permissions:
       contents: read
@@ -170,7 +189,26 @@ jobs:
         contains(github.event.pull_request.labels.*.name, 'run-maxi-review')
       )
     continue-on-error: true
-    runs-on: warp-macos-15-arm64-6x
+    # Was `warp-macos-15-arm64-6x`. That WarpBuild pool no longer exists -- zero
+    # runners in the org carry any `warp-*` label -- and a job whose label
+    # nobody advertises is not rejected by GitHub, it is QUEUED indefinitely
+    # with `runner_name: ""`. It yields no red check and no check result at
+    # all, so this was armed and silent rather than visibly broken.
+    #
+    # The destination is the only thing changed. This stays on macOS rather
+    # than following the canonical template to [self-hosted, Linux, X64]
+    # because THIS COPY's body is macOS-shaped (it prepends
+    # /opt/homebrew/bin to PATH below); retargeting it at Linux would be a
+    # behaviour change riding along with a runner fix. The self-hosted macOS
+    # pool has ample capacity for a lint job.
+    #
+    # This file is a stale copy of maxi-config's distributed maxi-review
+    # template: 290 lines here against 748 canonical, and canonical has been
+    # on [self-hosted, Linux, X64] for some time. Every other repo carrying
+    # this workflow already has the current version, so the real defect is
+    # that distribution skipped this repo -- tracked separately. Resyncing is
+    # the proper fix; this commit only stops the bleeding.
+    runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 40
     permissions:
       pull-requests: write
