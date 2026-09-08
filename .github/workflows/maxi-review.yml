@@ -62,6 +62,14 @@ jobs:
           owner: maxi-tools
           repositories: |
             maxi-config
+            # maxi-lint depends on maxi-libs, so a token that cannot read
+            # maxi-libs cannot BUILD maxi-lint: cargo install fails with
+            # "Repository not found" on maxi-libs.git and the gate then fails
+            # closed ("maxi-lint unavailable; failing lint gate rather than
+            # passing without a scan"). Canonical maxi-config lists maxi-libs
+            # here; this stale copy did not, which stayed invisible only
+            # because the job was pinned to a dead runner and never ran at all.
+            maxi-libs
             maxi-lint
             ${{ github.event.repository.name }}
           permission-contents: read
