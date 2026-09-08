@@ -60,15 +60,20 @@ jobs:
           app-id: ${{ vars.MAXI_REVIEW_APP_CLIENT_ID }}
           private-key: ${{ secrets.MAXI_REVIEW_APP_PRIVATE_KEY }}
           owner: maxi-tools
+          # maxi-libs is required: maxi-lint depends on it, so a token that
+          # cannot read maxi-libs cannot BUILD maxi-lint -- cargo install dies
+          # with "Repository not found" on maxi-libs.git and the gate then
+          # fails closed. Canonical maxi-config lists it; this stale copy did
+          # not, which stayed invisible only because the job was pinned to a
+          # dead runner and never ran far enough to fail.
+          #
+          # Note the comments are OUTSIDE the block scalar below on purpose: in
+          # a `|` literal block, `#` is content, not a comment, so a comment
+          # indented under `repositories:` becomes a repository name and the
+          # token request fails with "at least one repository that does not
+          # exist or is not accessible".
           repositories: |
             maxi-config
-            # maxi-lint depends on maxi-libs, so a token that cannot read
-            # maxi-libs cannot BUILD maxi-lint: cargo install fails with
-            # "Repository not found" on maxi-libs.git and the gate then fails
-            # closed ("maxi-lint unavailable; failing lint gate rather than
-            # passing without a scan"). Canonical maxi-config lists maxi-libs
-            # here; this stale copy did not, which stayed invisible only
-            # because the job was pinned to a dead runner and never ran at all.
             maxi-libs
             maxi-lint
             ${{ github.event.repository.name }}
