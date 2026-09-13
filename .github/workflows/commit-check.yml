@@ -1,5 +1,59 @@
 name: Commit Check
 
+# KNOWN BROKEN ON `pull_request`, AND GREEN ON `push` FOR A REASON THAT IS NOT
+# HEALTH. Documented here rather than left to be rediscovered, because the two
+# facts look contradictory and the reassuring one is the misleading one.
+#
+# History as of 2026-09-08, every run this workflow has ever had:
+#
+#   event=push          11 runs   ALL success
+#   event=pull_request   6 runs   ALL failure
+#
+# It has never once passed on `pull_request` -- the event it exists to gate.
+# The failures are not clustered on one branch or author: they span
+# agent/add-maxi-review-workflow (2026-07-30), blob-tx/4 and blob-tx/7
+# (2026-08-05), and ci/maxi-review-dead-runner (2026-09-08).
+#
+# WHY PR RUNS FAIL. `secrets.ANTHROPIC_API_KEY` does not exist -- not on this
+# repository, not on the organisation. The step's env block shows
+# `ANTHROPIC_API_KEY:` empty, and omni-dev then gets HTTP 401
+# "x-api-key header is required" once per commit, ending in
+# "Error: All commits failed to check" and exit 1.
+#
+# WHY PUSH RUNS ARE GREEN, which is the part worth internalising: the action
+# does not check anything on the default branch. It short-circuits:
+#
+#     if [ "$IS_MAIN_BRANCH" = "true" ] ...; then
+#       echo "Running on main branch - skipping commit $COMMAND (cache populated)"
+#       echo "exit-code=0" >> $GITHUB_OUTPUT
+#       exit 0
+#     fi
+#
+# So every push-to-main success is a deliberate no-op reporting success having
+# graded zero commits. Comparing a push run against a PR run to decide whether
+# this check is healthy compares the skip path against the real path; the
+# like-for-like comparison is event-to-event.
+#
+# A RED HERRING, since it has now cost two people time: a failing log appears to
+# contain `::error::Invalid 'command' input: '$COMMAND'` and an omni-dev
+# version-resolution error. Neither is emitted. GitHub renders the whole
+# composite script inside the `##[group]Run` fold, so the action's own
+# `echo "::error::..."` lines appear verbatim as source, with `$COMMAND`
+# unexpanded because it sits in a quoted echo. In the failing run those lines
+# are inside the script fold; the only actually-emitted error is
+# `##[error]Process completed with exit code 1`. Real emitted errors carry the
+# `##[error]` prefix -- match on that, not on `::error::`.
+#
+# TO FIX, either:
+#   * set an ANTHROPIC_API_KEY secret, or
+#   * make the action fail-soft when no key is present, so an absent credential
+#     is a skip rather than a guaranteed red on every pull request.
+#
+# Until then this is red on every PR and blocks nothing only because it is not
+# in the required status check set -- which is also why it went unnoticed for
+# ~40 days. Note too that the action is pinned to the mutable tag `@v1`, so its
+# behaviour can change without a commit here.
+
 on:
   push:
     branches: [main]
