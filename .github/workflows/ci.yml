@@ -146,9 +146,9 @@ jobs:
         if: needs.gate.outputs.code == 'true'
         run: cargo build --features cli --bin succinctly
 
-      - name: Run cli-gated yq/jq tests
+      - name: Run cli-gated CLI tests
         if: needs.gate.outputs.code == 'true'
-        run: cargo test --features cli --test yq_cli_tests --test yq_golden_tests --test yq_path_consistency_tests --test jq_golden_tests
+        run: cargo test --features cli --test yq_cli_tests --test yq_golden_tests --test yq_path_consistency_tests --test jq_golden_tests --test dsv_cli_tests --test json_validate_tests --test text_cli_tests
 
       - name: Run tests
         if: needs.gate.outputs.code == 'true'
@@ -232,9 +232,9 @@ jobs:
         if: needs.gate.outputs.code == 'true'
         run: cargo build --features cli --bin succinctly
 
-      - name: Run cli-gated yq/jq tests
+      - name: Run cli-gated CLI tests
         if: needs.gate.outputs.code == 'true'
-        run: cargo test --features cli --test yq_cli_tests --test yq_golden_tests --test yq_path_consistency_tests --test jq_golden_tests
+        run: cargo test --features cli --test yq_cli_tests --test yq_golden_tests --test yq_path_consistency_tests --test jq_golden_tests --test dsv_cli_tests --test json_validate_tests --test text_cli_tests
 
       - name: Run tests
         if: needs.gate.outputs.code == 'true'
@@ -295,9 +295,9 @@ jobs:
         if: needs.gate.outputs.code == 'true'
         run: cargo build --features cli --bin succinctly
 
-      - name: Run cli-gated yq/jq tests
+      - name: Run cli-gated CLI tests
         if: needs.gate.outputs.code == 'true'
-        run: cargo test --features cli --test yq_cli_tests --test yq_golden_tests --test yq_path_consistency_tests --test jq_golden_tests
+        run: cargo test --features cli --test yq_cli_tests --test yq_golden_tests --test yq_path_consistency_tests --test jq_golden_tests --test dsv_cli_tests --test json_validate_tests --test text_cli_tests
 
       - name: Run tests
         if: needs.gate.outputs.code == 'true'
@@ -358,8 +358,8 @@ jobs:
       - name: Build CLI (for integration tests)
         run: cargo build --features cli --bin succinctly
 
-      - name: Run cli-gated yq tests
-        run: cargo test --features cli --test yq_cli_tests --test yq_golden_tests --test yq_path_consistency_tests
+      - name: Run cli-gated CLI tests
+        run: cargo test --features cli --test yq_cli_tests --test yq_golden_tests --test yq_path_consistency_tests --test dsv_cli_tests --test json_validate_tests --test text_cli_tests
 
       - name: Run tests
         run: cargo test --verbose
