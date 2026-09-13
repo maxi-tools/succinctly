@@ -21,15 +21,21 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          # Nothing downstream authenticates to GitHub: the version is
+          # pinned so no tag lookup happens, the release download is public,
+          # and both the lint and the self-test read the local clone only.
+          persist-credentials: false
 
       # `lint` is the deterministic half of omni-dev-commit-check: no model,
       # no API key, no per-run spend. Rules come from
       # .omni-dev/commit-rules.yaml and .omni-dev/scopes.yaml.
       #
-      # The version is pinned rather than `latest` so the gate can't change
-      # under us, and so the step never hits api.github.com to resolve a tag
-      # (that lookup is rate-limited on shared runner IPs and the action
-      # already carries retry logic for it).
+      # Both the action and the binary are pinned so the gate cannot change
+      # under us: `@v1` is a mutable tag whose composite script decides which
+      # flags omni-dev receives, and `version: latest` would re-resolve the
+      # rule set on every run. Pinning the version also means the step never
+      # hits api.github.com to resolve a tag — that lookup is rate-limited on
+      # shared runner IPs, and the action carries three retries for it.
       #
       # skip-on-main is off: the run costs nothing, and a check that
       # short-circuits on the trunk is a check nobody notices has broken.
@@ -37,7 +43,7 @@ jobs:
       # instead proves the binary installs and both config files parse; the
       # self-test below is what asserts the rules actually bite.
       - name: Lint commit messages
-        uses: action-works/omni-dev-commit-check@v1
+        uses: action-works/omni-dev-commit-check@5e030432773a69203a85741b9a4e844eb9af9a78 # v1
         with:
           command: lint
           version: 0.43.0

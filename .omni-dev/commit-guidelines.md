@@ -66,8 +66,9 @@ omni-dev merges in that the file does not already name: `cargo` and `lib`.
 That file is the source of truth — this
 list is a convenience copy, and the one in `scopes.yaml` wins.
 
-Several scopes may be combined, separated by `,` or `, ` — no space before
-a comma, and no more than one after.
+Several scopes may be combined, separated by a comma and at most one
+space: `chore(build,ci)` and `chore(build, ci)` both pass. A space before
+the comma, or two after it, does not.
 
 ## Subject Line
 
