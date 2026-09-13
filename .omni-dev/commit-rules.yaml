@@ -1,0 +1,39 @@
+# Deterministic commit-message rules, read by `omni-dev git commit message
+# lint` — the CI gate in .github/workflows/commit-check.yml. No model, no
+# API key, no per-run spend.
+#
+# These transcribe the machine-checkable half of commit-guidelines.md. The
+# half that needs a reader of the diff (Accuracy, imperative mood,
+# body-for-large-changes) is not expressible here and stays a review
+# concern; commit-guidelines.md says which is which.
+#
+# Every field below is also an omni-dev default *except* subject_max_len
+# (defaults to 80) and require_scope (defaults to false). A missing or
+# malformed file silently reverts to those defaults, so the fixtures
+# error.subject-length and error.missing-scope in
+# tests/testdata/commit-lint/ exist to make that reversion loud.
+
+# commit-guidelines.md, "Subject Line": keep under 72 characters total.
+subject_max_len: 72
+
+# commit-guidelines.md, "Scopes": required. Names come from scopes.yaml,
+# plus the `cargo` and `lib` defaults omni-dev merges in for Rust projects.
+require_scope: true
+
+# commit-guidelines.md, "Types".
+types:
+  - feat
+  - fix
+  - docs
+  - refactor
+  - chore
+  - test
+  - ci
+  - build
+  - perf
+  - style
+
+# Matched case-insensitively against `<prefix>:` at the start of any line.
+# A warning, which `strict: true` in the workflow promotes to a failure.
+forbidden_footers:
+  - Co-Authored-By

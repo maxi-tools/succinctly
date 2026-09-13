@@ -1,0 +1,1 @@
+chore(build, ci): bump rand to 0.9.3 and migrate the 0.8 API

@@ -1,0 +1,6 @@
+feat(json): add PFSM table-driven parser
+
+Implements the parallel finite state machine approach, replacing the
+scalar branchy indexer on the hot path.
+
+Closes #12
