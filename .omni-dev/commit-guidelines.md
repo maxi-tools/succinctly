@@ -115,24 +115,23 @@ fix(cli): handle missing config file gracefully
 
 ### Feature with body
 ```
-feat(claude): add contextual intelligence for commit message improvement
+feat(json): add PFSM table-driven parser
 
-Implements Phase 3 of the twiddle command enhancement with multi-layer
-context discovery including project conventions, branch analysis, and
-work pattern detection.
+Implements the parallel finite state machine approach from hw-json-simd,
+replacing the branchy scalar indexer on the hot path.
 
-- Add project context discovery from .omni-dev/ configuration
-- Implement branch naming pattern analysis
-- Add work pattern detection across commit ranges
-- Enhance Claude prompting with contextual intelligence
+- Add the transition table and its generator
+- Dispatch to the PFSM path when the input clears the size threshold
+- Keep the scalar indexer as the fallback arm
 
 Closes #12
 ```
 
 ### Breaking change
 ```
-feat(api)!: change amendment response format to YAML
+refactor(simd)!: remove orphaned DsvIndex::new and select_sample_rate
 
-BREAKING CHANGE: The amendment API now returns YAML instead of JSON.
-Update clients to use a YAML parser for response handling.
+BREAKING CHANGE: DsvIndex::new is gone; construct through
+DsvIndexLightweight instead. Callers tuning select_sample_rate should
+drop the call — the lightweight index does not sample.
 ```

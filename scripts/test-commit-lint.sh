@@ -40,9 +40,10 @@ fi
 
 fixtures=tests/testdata/commit-lint
 
-# Every rule the gate can fail on needs a fixture that provokes it. Deleting
-# a fixture is a silent loss of coverage, so the list is asserted, not
-# discovered.
+# Every rule the gate can fail on needs a fixture that provokes it, and every
+# distinct accepted form needs one that proves it still passes. Deleting any
+# of them is a silent loss of coverage, so the list is asserted by name rather
+# than discovered by glob — a glob is satisfied by whichever file survives.
 required_fixtures="
 error.format
 error.unknown-type
@@ -54,6 +55,10 @@ error.scope-comma-format
 warning.forbidden-footer
 info.lowercase-description
 info.no-trailing-period
+ok.subject-only
+ok.multi-scope
+ok.body-and-footer
+ok.breaking-marker
 "
 
 failures=0
@@ -73,10 +78,6 @@ for name in $required_fixtures; do
     fail "$name.txt is missing from $fixtures — a rule lost its coverage"
   fi
 done
-
-if ! ls "$fixtures"/ok.*.txt >/dev/null 2>&1; then
-  fail "no ok.*.txt fixtures — nothing proves the gate accepts a good message"
-fi
 
 # omni-dev falls back to its built-in defaults, with only a tracing warning,
 # when commit-rules.yaml cannot be read or parsed. Assert the values it
