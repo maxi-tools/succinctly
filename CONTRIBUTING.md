@@ -131,6 +131,8 @@ We use [Conventional Commits](https://www.conventionalcommits.org/) format:
 - `perf`: Performance improvement
 - `test`: Adding or updating tests
 - `chore`: Maintenance tasks
+- `ci`: CI/CD pipelines and GitHub Actions workflows
+- `build`: Build system, feature flags, dependency manifests
 
 **Examples:**
 ```
@@ -147,11 +149,28 @@ Fixes #42
 ```
 
 ```
-perf(popcount): add AVX-512 VPOPCNTDQ implementation
+perf(simd): add AVX-512 VPOPCNTDQ implementation
 
 5.2x faster than scalar for large bitvectors.
 Requires Intel Ice Lake+ or AMD Zen 4+.
 ```
+
+CI enforces this deterministically — the `Commit Message Check` job runs
+`omni-dev git commit message lint` with no model and no API key. The rules
+live in [`.omni-dev/commit-rules.yaml`](.omni-dev/commit-rules.yaml) (72
+character subject limit, scope required, accepted types, no
+`Co-Authored-By:` trailer) and the accepted scopes in
+[`.omni-dev/scopes.yaml`](.omni-dev/scopes.yaml). To check a message before
+pushing:
+
+```bash
+git log -1 --format=%B | omni-dev git commit message lint --stdin --strict
+```
+
+Everything the gate cannot decide without reading the diff — whether the
+type matches the change, whether the description is truthful, imperative
+mood — is left to review, and is listed in
+[`.omni-dev/commit-guidelines.md`](.omni-dev/commit-guidelines.md).
 
 ## Pull Request Process
 

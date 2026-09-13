@@ -2,6 +2,26 @@
 
 This project follows conventional commit format with specific requirements.
 
+## What CI actually enforces
+
+CI runs `omni-dev git commit message lint` (see
+`.github/workflows/commit-check.yml`) — deterministic, no model, no API key.
+It reads `.omni-dev/commit-rules.yaml` and `.omni-dev/scopes.yaml`, *not*
+this file. Machine-enforced here: Commit Format, Types, Scopes, the
+subject-length limit, the blank second line, the two Subject Line Style
+rules, and the `Co-Authored-By` ban.
+
+The rest of this document is advisory — a human review concern, not a gate.
+That is: **Accuracy** in full (type matches the change, scope matches the
+files, description is truthful), **imperative mood** and **"be specific"**
+under Subject Line, the **Body Guidelines** body-for-large-changes rule, and
+the `BREAKING CHANGE:` footer requirement (the `!` marker parses, but no
+rule demands the footer). Each of those needs someone — or something —
+that has read the diff and understood the prose; none of them survives as a
+deterministic check.
+
+`scripts/test-commit-lint.sh` proves the enforced rules still bite.
+
 ## Severity Levels
 
 | Severity | Sections                                                               |
@@ -39,16 +59,15 @@ Required. Must be one of:
 
 ## Scopes
 
-Required. Use scopes defined in `.omni-dev/scopes.yaml`:
+Required. The accepted names are exactly those in `.omni-dev/scopes.yaml`
+(`bitvec`, `bp`, `json`, `yaml`, `jq`, `dsv`, `simd`, `cli`, `bench`,
+`test`, `docs`, `ci`, `build`, `core`), plus the two Rust ecosystem defaults
+omni-dev merges in that the file does not already name: `cargo` and `lib`.
+That file is the source of truth — this
+list is a convenience copy, and the one in `scopes.yaml` wins.
 
-- `ci` - CI/CD pipelines and GitHub Actions workflows
-- `claude` - AI client implementation and integration
-- `cli` - Command-line interface and argument parsing
-- `git` - Git operations and repository analysis
-- `data` - Data structures and serialization
-- `docs` - Documentation and planning
-- `api` - External API integrations
-- `workflows` - GitHub Actions workflow files
+Several scopes may be combined, separated by `,` or `, ` — no space before
+a comma, and no more than one after.
 
 ## Subject Line
 
