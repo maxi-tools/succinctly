@@ -19,6 +19,10 @@ scopes:
     description: "jq query language parser and evaluator"
     examples: ["jq: add array slicing", "jq: fix negative index"]
     file_patterns: ["src/jq/**"]
+  - name: "dsv"
+    description: "Delimiter-separated value (CSV/TSV) indexing and selection"
+    examples: ["dsv: guard the lightweight index at u32::MAX", "dsv: widen the backend sweep"]
+    file_patterns: ["src/dsv/**"]
   - name: "simd"
     description: "SIMD optimizations (x86, AVX2, NEON)"
     examples: ["simd: add AVX2 popcount", "simd: fix NEON alignment"]
