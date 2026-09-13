@@ -1,0 +1,2 @@
+docs(docs): document the jq golden conformance suite
+The second line is not blank, which the commit format forbids.

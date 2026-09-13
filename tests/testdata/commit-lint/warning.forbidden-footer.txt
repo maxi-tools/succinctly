@@ -1,0 +1,3 @@
+fix(jq): return null for out-of-bounds array indices
+
+Co-Authored-By: Some Model <noreply@example.com>
