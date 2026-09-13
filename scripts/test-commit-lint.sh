@@ -58,6 +58,11 @@ info.no-trailing-period
 
 failures=0
 
+stderr_file=$(mktemp)
+trap 'rm -f "$stderr_file"' EXIT
+
+# Records one self-test failure and keeps going, so a single broken rule
+# does not hide the state of the others.
 fail() {
   echo "FAIL: $1" >&2
   failures=$((failures + 1))
@@ -72,6 +77,21 @@ done
 if ! ls "$fixtures"/ok.*.txt >/dev/null 2>&1; then
   fail "no ok.*.txt fixtures — nothing proves the gate accepts a good message"
 fi
+
+# omni-dev falls back to its built-in defaults, with only a tracing warning,
+# when commit-rules.yaml cannot be read or parsed. Assert the values it
+# actually resolved rather than inferring them. The output format is stable
+# because the workflow pins the omni-dev version; if it ever changes, this
+# fails loudly, which is the safe direction.
+resolved=$(printf 'fix(ci): probe the resolved configuration\n' |
+  "$OMNI_DEV" git commit message lint --stdin --verbose --context-dir .omni-dev/ 2>/dev/null |
+  grep -F 'subject_max_len=' || true)
+expected_config='subject_max_len=72, require_scope=true, types=10'
+case "$resolved" in
+  *"$expected_config"*) ;;
+  '') fail "omni-dev reported no resolved rule configuration at all" ;;
+  *)  fail "resolved config is [$(echo "$resolved" | tr -s ' ')], expected [$expected_config]" ;;
+esac
 
 for fixture in "$fixtures"/*.txt; do
   base=$(basename "$fixture" .txt)
@@ -92,14 +112,25 @@ for fixture in "$fixtures"/*.txt; do
   actual_exit=0
   report=$("$OMNI_DEV" git commit message lint \
     --stdin --strict --output json --context-dir .omni-dev/ \
-    <"$fixture" 2>&1) || actual_exit=$?
+    <"$fixture" 2>"$stderr_file") || actual_exit=$?
+
+  # Anything other than a parseable report means the lint did not run, which
+  # is a failure of this fixture rather than a reason to abandon the suite.
+  if ! printf '%s' "$report" | jq -e . >/dev/null 2>&1; then
+    fail "$base: lint produced no parseable JSON report (exit $actual_exit)"
+    cat "$stderr_file" >&2
+    continue
+  fi
 
   if [ "$actual_exit" -ne "$expected_exit" ]; then
     fail "$base: exit $actual_exit, expected $expected_exit"
     echo "$report" >&2
+    cat "$stderr_file" >&2
     continue
   fi
 
+  # Lists the rule ids the current $report reports at severity $1, sorted
+  # and comma-joined, so it can be compared against the fixture's filename.
   rules_at() {
     printf '%s' "$report" |
       jq -r --arg sev "$1" \
