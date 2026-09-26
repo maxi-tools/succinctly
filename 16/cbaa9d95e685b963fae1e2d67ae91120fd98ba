@@ -1,0 +1,42 @@
+README.md
+  h_cebe5b6d461c32 342
+ARCHITECTURE.md
+  h_cebe5b6d461c32 71
+CODE_OF_CONDUCT.md
+  h_cebe5b6d461c32 153
+CONTRIBUTING.md
+  h_cebe5b6d461c32 317
+docs/README.md
+  h_cebe5b6d461c32 57
+docs/STYLE_GUIDE.md
+  h_cebe5b6d461c32 6,340,366,370,377,409,435
+docs/adrs/README.md
+  h_cebe5b6d461c32 42
+docs/adrs/adr-0000.md
+  h_cebe5b6d461c32 13,53,55,67
+docs/adrs/adr-0001.md
+  h_cebe5b6d461c32 64
+docs/benchmarks/inventory.md
+  h_cebe5b6d461c32 762
+docs/benchmarks/jq.md
+  h_cebe5b6d461c32 29
+docs/benchmarks/rust-parsers.md
+  h_cebe5b6d461c32 287
+docs/index.md
+  h_cebe5b6d461c32 27,125
+docs/optimizations/README.md
+  h_cebe5b6d461c32 226
+docs/plan/documentation-refactor.md
+  h_cebe5b6d461c32 761
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "16cbaa9d95e685b963fae1e2d67ae91120fd98ba",
+  "prompts": {},
+  "humans": {
+    "h_cebe5b6d461c32": {
+      "author": "Maxi Boch <874012+maxiboch@users.noreply.github.com>"
+    }
+  }
+}
