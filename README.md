@@ -339,7 +339,9 @@ Choose your path:
 - **Benchmarks?** -> [Performance Comparisons](docs/benchmarks/)
 - **Full documentation map** -> [docs/](docs/)
 
-For AI-assisted development, see [CLAUDE.md](CLAUDE.md).
+For AI-assisted development conventions, see the internal maxi-config
+agent-rules wiki (delivered locally via `maxi-agent-runner`'s
+`~/.claude/CLAUDE.md` provisioning — no longer a file in this repo).
 
 ## Contributing
 
