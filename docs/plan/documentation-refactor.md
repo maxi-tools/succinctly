@@ -758,7 +758,7 @@ Learn the basics in 5 minutes:
 - [Archive](archive/) - Historical context and failed experiments
 
 ### 🤖 AI-Assisted Development
-- [CLAUDE.md](../CLAUDE.md) - Comprehensive guide for AI assistants
+- Hermes skill hub (`~/.claude/skills/`) - Comprehensive guide for AI assistants (historical plan note: CLAUDE.md has since been removed from git, see docs/agentic-dev-material-audit)
 
 ---
 

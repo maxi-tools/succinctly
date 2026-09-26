@@ -54,7 +54,7 @@ Learn the basics:
 - [Implementation Plans](plan/) - Feature planning documents
 
 ### AI-Assisted Development
-- [CLAUDE.md](../CLAUDE.md) - Comprehensive guide for AI assistants
+- Hermes skill hub (`~/.claude/skills/`) - Comprehensive guide for AI assistants
 
 ---
 

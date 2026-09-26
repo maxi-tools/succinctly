@@ -3,7 +3,7 @@
 Conventions for code, documentation, and other project artifacts in the succinctly
 project. Each item has a unique ID for easy reference.
 
-Much of the detailed *how* lives in the `.claude/skills/` skills and in
+Much of the detailed *how* lives in the Hermes skill hub (`~/.claude/skills/`) and in
 [CONTRIBUTING.md](../CONTRIBUTING.md); this guide is the stable-ID index that lint
 suppressions, code review, and those docs can point at unambiguously.
 
@@ -337,7 +337,7 @@ Writing a new test.
 - **Snapshot tests** use `insta` where output stability matters.
 
 For deeper patterns and anti-patterns (e.g. asserting on real behaviour rather than
-tautologies), see the [`testing` skill](../.claude/skills/testing/SKILL.md).
+tautologies), see the `testing` skill in the Hermes skill hub (`~/.claude/skills/testing/SKILL.md`).
 
 ### Motivation
 
@@ -363,18 +363,18 @@ Adding, updating, or documenting benchmark results.
   overlapping runs produce meaningless numbers.
 - **Label every result table with the CPU/platform** it was measured on (the existing tables use
   headings like "Apple M1 Max", "ARM Neoverse-V2"). Numbers without a platform are not comparable.
-- **Keep the summaries in sync** — the performance tables in [CLAUDE.md](../CLAUDE.md) and the
+- **Keep the summaries in sync** — the performance tables in the Hermes skill hub (`~/.claude/skills/`) and the
   detailed pages under [docs/benchmarks/](benchmarks/) must not diverge; update both when a number
   changes, and note the regeneration command beneath the table.
 
-The [`benchmark-docs` skill](../.claude/skills/benchmark-docs/SKILL.md) codifies the per-platform
+The `benchmark-docs` skill in the Hermes skill hub (`~/.claude/skills/benchmark-docs/SKILL.md`) codifies the per-platform
 update procedure.
 
 ### Motivation
 
 Benchmark numbers are only trustworthy if they are reproducible and attributed to hardware.
 Sequential execution avoids the biggest source of noise; per-platform labelling stops readers
-comparing an M4 result against a Neoverse one; keeping CLAUDE.md and `docs/benchmarks/` in lock-step
+comparing an M4 result against a Neoverse one; keeping the skill hub and `docs/benchmarks/` in lock-step
 prevents the headline summary from drifting away from the detail.
 
 ---
@@ -406,7 +406,7 @@ all body rows share one column width. Prefer this:
 | BalancedParens | 6%       |
 ```
 
-The [`markdown-tables` / `format-md-tables` skill](../.claude/skills/markdown-tables/SKILL.md)
+The `markdown-tables` / `format-md-tables` skill (Hermes skill hub, `~/.claude/skills/markdown-tables/SKILL.md`)
 automates this — run it after editing a table rather than aligning by hand.
 
 ### Motivation
@@ -432,7 +432,7 @@ with an optional body and footer. Types in use: `feat`, `fix`, `docs`, `style`, 
 `test`, `chore`. Scope names the touched area (`json`, `bp`, `yaml`, `dsv`, `bench`, …). For
 performance commits, put the measured speedup in the body. Full detail and examples are in
 [CONTRIBUTING.md](../CONTRIBUTING.md#commit-messages); the
-[`commit-msg` skill](../.claude/skills/commit-msg/SKILL.md) analyses a diff and drafts a message.
+`commit-msg` skill (Hermes skill hub, `~/.claude/skills/commit-msg/SKILL.md`) analyses a diff and drafts a message.
 
 ### Motivation
 

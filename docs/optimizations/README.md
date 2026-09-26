@@ -223,4 +223,4 @@ When adding new optimization documentation:
 
 - [history.md](history.md) - Complete record of all optimizations attempted (successes and failures with exact measurements)
 - [end-positions.md](end-positions.md) - Detailed case study of three EndPositions designs (Vec, 3-bitmap, 2-bitmap)
-- [../../.claude/skills/](../../.claude/skills/) - Claude Code skill files for specific topics
+- Hermes skill hub (`~/.claude/skills/`) - Claude Code skill files for specific topics

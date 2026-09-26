@@ -150,7 +150,7 @@ Community leaders will follow these Community Impact Guidelines in determining t
 * [Contributing Guidelines](CONTRIBUTING.md)
 * [Developer Guide](docs/guides/developer.md)
 * [API Guide](docs/guides/api.md)
-* [Project Architecture](CLAUDE.md)
+* Project Architecture: see the Hermes skill hub (`~/.claude/skills/`)
 
 ### Mental Health and Well-being
 We recognize that contributing to open source can be stressful. If you're experiencing difficulties:

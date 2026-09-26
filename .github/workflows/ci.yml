@@ -51,7 +51,6 @@ jobs:
               - '**'
               - '!*.md'
               - '!docs/**'
-              - '!.claude/skills/**'
 
       - id: decide
         run: |
@@ -476,21 +475,6 @@ jobs:
       - name: Check formatting
         if: needs.gate.outputs.code == 'true'
         run: cargo fmt --all -- --check
-
-  skill-casing:
-    name: Skill manifest casing
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-
-      - name: Check SKILL.md casing (#189)
-        run: |
-          bad="$(find .claude/skills -maxdepth 2 -iname 'skill.md' ! -name 'SKILL.md')"
-          if [ -n "$bad" ]; then
-            echo "::error::Skill manifests must be named SKILL.md (see #189):"
-            echo "$bad"
-            exit 1
-          fi
 
   docs:
     name: Documentation
