@@ -24,7 +24,7 @@ graph TD
 | JSON structural index      | [JsonIndex](parsing/json-index.md)                    | [src/json/](../src/json/)             | [parsing/json.md](parsing/json.md)                                 |
 | YAML structural index      | [YamlIndex](parsing/yaml-index.md)                    | [src/yaml/](../src/yaml/)             | [parsing/yaml.md](parsing/yaml.md)                                 |
 | DSV/CSV structural index   | [DsvIndex](parsing/dsv-index.md)                      | [src/dsv/](../src/dsv/)               | [parsing/dsv.md](parsing/dsv.md)                                   |
-| Query language             | [jq Evaluator](reference/jq-evaluator.md)             | [src/jq/](../src/jq/)                 | [CLAUDE.md](../CLAUDE.md#jq-format-functions)                      |
+| Query language             | [jq Evaluator](reference/jq-evaluator.md)             | [src/jq/](../src/jq/)                 | [jq reference](reference/jq-evaluator.md)                          |
 | SIMD acceleration          | [SIMD Strategy](optimizations/simd-strategy.md)       | per-module `simd/` dirs               | [optimizations/simd.md](optimizations/simd.md)                     |
 
 ## How Semi-Indexing Works

@@ -26,7 +26,7 @@ Before reviewing the benchmarks, it's important to understand the fundamental di
 
 3. **Streaming output**: succinctly writes JSON directly to output without building intermediate String objects.
 
-succinctly supports most common jq queries including path navigation, array slicing, filtering, and piping. See [CLAUDE.md](../../CLAUDE.md) for supported operators.
+succinctly supports most common jq queries including path navigation, array slicing, filtering, and piping. See [jq evaluator](../reference/jq-evaluator.md) for supported operators.
 
 For detailed architectural documentation, see [Semi-Indexing Architecture](../architecture/semi-indexing.md).
 

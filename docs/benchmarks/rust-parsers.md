@@ -284,4 +284,4 @@ cargo bench --bench json_parsers
 
 - [jq.md](jq.md) - Comparison with system `jq` command
 - [optimizations/history.md](../optimizations/history.md) - Optimization history and learnings
-- [CLAUDE.md](../../CLAUDE.md) - Project architecture and development guide
+- [ARCHITECTURE.md](../../ARCHITECTURE.md) - Project architecture and development guide
