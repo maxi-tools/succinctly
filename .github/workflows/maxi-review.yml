@@ -60,12 +60,9 @@ jobs:
           app-id: ${{ vars.MAXI_REVIEW_APP_CLIENT_ID }}
           private-key: ${{ secrets.MAXI_REVIEW_APP_PRIVATE_KEY }}
           owner: maxi-tools
-          # maxi-libs is required: maxi-lint depends on it, so a token that
-          # cannot read maxi-libs cannot BUILD maxi-lint -- cargo install dies
-          # with "Repository not found" on maxi-libs.git and the gate then
-          # fails closed. Canonical maxi-config lists it; this stale copy did
-          # not, which stayed invisible only because the job was pinned to a
-          # dead runner and never ran far enough to fail.
+          # maxi-lint depends on both maxi-libs and maximoji-rs. Cargo install
+          # must be able to fetch these private repositories or the lint gate
+          # fails before it can produce findings.
           #
           # Note the comments are OUTSIDE the block scalar below on purpose: in
           # a `|` literal block, `#` is content, not a comment, so a comment
@@ -76,6 +73,7 @@ jobs:
             maxi-config
             maxi-libs
             maxi-lint
+            maximoji-rs
             ${{ github.event.repository.name }}
           permission-contents: read
           permission-pull-requests: read
