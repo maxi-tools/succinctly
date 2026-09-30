@@ -758,7 +758,7 @@ Learn the basics in 5 minutes:
 - [Archive](archive/) - Historical context and failed experiments
 
 ### 🤖 AI-Assisted Development
-- [CLAUDE.md](../CLAUDE.md) - Comprehensive guide for AI assistants
+- `CLAUDE.md` (removed from this repository) - Comprehensive guide for AI assistants
 
 ---
 

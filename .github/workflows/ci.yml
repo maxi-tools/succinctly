@@ -485,6 +485,10 @@ jobs:
 
       - name: Check SKILL.md casing (#189)
         run: |
+          # Skills are distributed outside this repository; check only when present.
+          if [ ! -d .claude/skills ]; then
+            exit 0
+          fi
           bad="$(find .claude/skills -maxdepth 2 -iname 'skill.md' ! -name 'SKILL.md')"
           if [ -n "$bad" ]; then
             echo "::error::Skill manifests must be named SKILL.md (see #189):"

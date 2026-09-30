@@ -53,8 +53,9 @@ Learn the basics:
 - [Reference](reference/) - jq and yq language documentation, environment variables
 - [Implementation Plans](plan/) - Feature planning documents
 
-### AI-Assisted Development
-- [CLAUDE.md](../CLAUDE.md) - Comprehensive guide for AI assistants
+### Architecture and development
+- [ARCHITECTURE.md](../ARCHITECTURE.md) - Project structure and links to design documentation
+- [CONTRIBUTING.md](../CONTRIBUTING.md) - Build, test, and contribution workflow
 
 ---
 

@@ -314,7 +314,7 @@ See [docs/guides/release.md](docs/guides/release.md) for the release process and
 
 - Open an issue for questions about contributing
 - Check existing issues and PRs for similar work
-- Read the [architecture documentation](CLAUDE.md) for design context
+- Read the [architecture documentation](ARCHITECTURE.md) for design context
 
 ## License
 

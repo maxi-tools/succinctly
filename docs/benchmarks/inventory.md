@@ -759,4 +759,4 @@ cargo bench --bench json_parsers
 - [README.md](README.md) - Overview of benchmark results
 - [../optimizations/](../optimizations/) - Optimization techniques used
 - [../architecture/semi-indexing.md](../architecture/semi-indexing.md) - Semi-indexing architecture
-- [../../CLAUDE.md](../../CLAUDE.md) - Project overview and development guide
+- [ARCHITECTURE.md](../../ARCHITECTURE.md) - Project overview and development guide
