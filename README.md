@@ -339,7 +339,7 @@ Choose your path:
 - **Benchmarks?** -> [Performance Comparisons](docs/benchmarks/)
 - **Full documentation map** -> [docs/](docs/)
 
-For AI-assisted development, see [CLAUDE.md](CLAUDE.md).
+For AI-assisted development guidance, see the Hermes skill hub (`~/.claude/skills/`) rather than a file in this repo.
 
 ## Contributing
 

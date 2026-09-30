@@ -24,7 +24,7 @@ graph TD
 | JSON structural index      | [JsonIndex](parsing/json-index.md)                    | [src/json/](../src/json/)             | [parsing/json.md](parsing/json.md)                                 |
 | YAML structural index      | [YamlIndex](parsing/yaml-index.md)                    | [src/yaml/](../src/yaml/)             | [parsing/yaml.md](parsing/yaml.md)                                 |
 | DSV/CSV structural index   | [DsvIndex](parsing/dsv-index.md)                      | [src/dsv/](../src/dsv/)               | [parsing/dsv.md](parsing/dsv.md)                                   |
-| Query language             | [jq Evaluator](reference/jq-evaluator.md)             | [src/jq/](../src/jq/)                 | [CLAUDE.md](../CLAUDE.md#jq-format-functions)                      |
+| Query language             | [jq Evaluator](reference/jq-evaluator.md)             | [src/jq/](../src/jq/)                 | Hermes skill hub (`~/.claude/skills/`)                             |
 | SIMD acceleration          | [SIMD Strategy](optimizations/simd-strategy.md)       | per-module `simd/` dirs               | [optimizations/simd.md](optimizations/simd.md)                     |
 
 ## How Semi-Indexing Works
@@ -122,7 +122,7 @@ BMI2 quote-indexing, parse-time newline index, AVX-512), each as a stable, citab
 
 ## Maintaining the Knowledge Map
 
-Maintenance procedures are codified in the `knowledge-map` skill (`.claude/skills/knowledge-map/SKILL.md`), which Claude auto-invokes when updating wiki pages. The key rules:
+Maintenance procedures are codified in the `knowledge-map` skill (delivered via the Hermes skill hub, `~/.claude/skills/knowledge-map/SKILL.md`), which Claude auto-invokes when updating wiki pages. The key rules:
 
 - Every concept page follows a consistent structure: breadcrumb, What It Does, How It Works, Depends On, Used By, Academic Papers, Source & Docs
 - Depends On / Used By links must be bidirectional

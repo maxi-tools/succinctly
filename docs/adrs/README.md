@@ -39,6 +39,6 @@ by Michael Nygard.
 | [ADR-0010](adr-0010.md) | ✅ Accepted | 2026-07-12 | Reject AVX-512 SIMD Variants (P8)                      |
 | [ADR-0011](adr-0011.md) | ✅ Accepted | 2026-07-15 | Custom Succinct Structures over Existing Rust Crates   |
 
-The inventory is maintained by the [`update-adr-inventory`](../../.claude/skills/update-adr-inventory/SKILL.md)
+The inventory is maintained by the `update-adr-inventory` skill (Hermes skill hub, `~/.claude/skills/update-adr-inventory/SKILL.md`)
 skill, which scans `adr-*.md` for the title and status and derives the date from git history.
 Run it whenever an ADR is added or its status changes.
