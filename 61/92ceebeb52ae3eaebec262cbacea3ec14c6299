@@ -1,0 +1,14 @@
+.github/workflows/qodana.yml
+  h_cebe5b6d461c32 4-23,32-36,41-51,54-64,68-77,105,108-138,179-187,217-280,295-404,411-422,425-466,468-477,480-489,503-552,554-556,558-575,577-676,688-720,723,725,728,737-945,970-1144,1147-1443,1445-1459,1466-1473,1481-1718,1727-1755,1783-1842,1844-1886
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6192ceebeb52ae3eaebec262cbacea3ec14c6299",
+  "prompts": {},
+  "humans": {
+    "h_cebe5b6d461c32": {
+      "author": "Maxi Boch <874012+maxiboch@users.noreply.github.com>"
+    }
+  }
+}
