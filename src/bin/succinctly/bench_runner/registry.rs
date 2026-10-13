@@ -393,12 +393,36 @@ mod tests {
 
     #[test]
     fn test_all_categories_have_benchmarks() {
-        assert!(!filter_by_category(BenchmarkCategory::Core).is_empty(), "{v_Core:?}", v_Core = filter_by_category(BenchmarkCategory::Core));
-        assert!(!filter_by_category(BenchmarkCategory::Json).is_empty(), "{v_Json:?}", v_Json = filter_by_category(BenchmarkCategory::Json));
-        assert!(!filter_by_category(BenchmarkCategory::Yaml).is_empty(), "{v_Yaml:?}", v_Yaml = filter_by_category(BenchmarkCategory::Yaml));
-        assert!(!filter_by_category(BenchmarkCategory::Dsv).is_empty(), "{v_Dsv:?}", v_Dsv = filter_by_category(BenchmarkCategory::Dsv));
-        assert!(!filter_by_category(BenchmarkCategory::Text).is_empty(), "{v_Text:?}", v_Text = filter_by_category(BenchmarkCategory::Text));
-        assert!(!filter_by_category(BenchmarkCategory::CrossParser).is_empty(), "{v_CrossParser:?}", v_CrossParser = filter_by_category(BenchmarkCategory::CrossParser));
+        assert!(
+            !filter_by_category(BenchmarkCategory::Core).is_empty(),
+            "{v_Core:?}",
+            v_Core = filter_by_category(BenchmarkCategory::Core)
+        );
+        assert!(
+            !filter_by_category(BenchmarkCategory::Json).is_empty(),
+            "{v_Json:?}",
+            v_Json = filter_by_category(BenchmarkCategory::Json)
+        );
+        assert!(
+            !filter_by_category(BenchmarkCategory::Yaml).is_empty(),
+            "{v_Yaml:?}",
+            v_Yaml = filter_by_category(BenchmarkCategory::Yaml)
+        );
+        assert!(
+            !filter_by_category(BenchmarkCategory::Dsv).is_empty(),
+            "{v_Dsv:?}",
+            v_Dsv = filter_by_category(BenchmarkCategory::Dsv)
+        );
+        assert!(
+            !filter_by_category(BenchmarkCategory::Text).is_empty(),
+            "{v_Text:?}",
+            v_Text = filter_by_category(BenchmarkCategory::Text)
+        );
+        assert!(
+            !filter_by_category(BenchmarkCategory::CrossParser).is_empty(),
+            "{v_CrossParser:?}",
+            v_CrossParser = filter_by_category(BenchmarkCategory::CrossParser)
+        );
     }
 
     #[test]

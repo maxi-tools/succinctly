@@ -101,7 +101,10 @@ const PATTERNS: &[&str] = &[
 fn validate_valid_ascii_stdin_exit_0() -> Result<()> {
     let (stdout, stderr, code) = run_validate_stdin(b"Hello, world!\n", &[])?;
     assert_eq!(code, 0, "stderr: {stderr}");
-    assert!(stdout.is_empty(), "stdout should be empty on success: {stdout:?}");
+    assert!(
+        stdout.is_empty(),
+        "stdout should be empty on success: {stdout:?}"
+    );
     Ok(())
 }
 

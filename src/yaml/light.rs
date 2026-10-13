@@ -5855,7 +5855,10 @@ mod tests {
 
         if let YamlValue::Mapping(fields) = first_doc(root) {
             if let Some(YamlValue::Mapping(data_fields)) = fields.find("data") {
-                assert!(data_fields.is_empty(), "expected empty mapping: {data_fields:?}");
+                assert!(
+                    data_fields.is_empty(),
+                    "expected empty mapping: {data_fields:?}"
+                );
             } else {
                 panic!("expected mapping for data");
             }

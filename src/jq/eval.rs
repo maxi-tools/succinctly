@@ -16355,7 +16355,10 @@ mod tests {
         // which the integration parity tests do not exercise.
         let none: QueryResult<Vec<u64>> = QueryResult::None;
         let _v_none_collect_owned = none.collect_owned();
-        assert!(_v_none_collect_owned.is_empty(), "{_v_none_collect_owned:?}");
+        assert!(
+            _v_none_collect_owned.is_empty(),
+            "{_v_none_collect_owned:?}"
+        );
         assert!(!QueryResult::<Vec<u64>>::None.is_error());
 
         let err: QueryResult<Vec<u64>> = QueryResult::Error(EvalError::new("boom"));
