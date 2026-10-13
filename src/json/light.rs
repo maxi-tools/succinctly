@@ -2068,7 +2068,7 @@ mod tests {
     fn test_build_index() {
         let json = br#"{"a": 1}"#;
         let index = JsonIndex::build(json);
-        assert!(!index.bp().is_empty());
+        assert!(!index.bp().is_empty(), "{v_bp:?}", v_bp = index.bp());
     }
 
     #[test]
@@ -2096,7 +2096,7 @@ mod tests {
 
         match root.value() {
             StandardJson::Object(fields) => {
-                assert!(fields.is_empty());
+                assert!(fields.is_empty(), "{fields:?}");
             }
             _ => panic!("expected object"),
         }
@@ -2110,7 +2110,7 @@ mod tests {
 
         match root.value() {
             StandardJson::Array(elements) => {
-                assert!(elements.is_empty());
+                assert!(elements.is_empty(), "{elements:?}");
             }
             _ => panic!("expected array"),
         }
@@ -2173,7 +2173,7 @@ mod tests {
 
         match root.value() {
             StandardJson::Object(fields) => {
-                assert!(!fields.is_empty());
+                assert!(!fields.is_empty(), "{fields:?}");
 
                 // Uncons the first field
                 let (field, rest) = fields.uncons().expect("should have one field");
@@ -2195,7 +2195,7 @@ mod tests {
                 }
 
                 // Rest should be empty
-                assert!(rest.is_empty());
+                assert!(rest.is_empty(), "{rest:?}");
             }
             _ => panic!("expected object"),
         }
@@ -2232,7 +2232,7 @@ mod tests {
                 }
 
                 // No more fields
-                assert!(rest2.is_empty());
+                assert!(rest2.is_empty(), "{rest2:?}");
             }
             _ => panic!("expected object"),
         }
@@ -2279,7 +2279,7 @@ mod tests {
 
         match root.value() {
             StandardJson::Array(elements) => {
-                assert!(!elements.is_empty());
+                assert!(!elements.is_empty(), "{elements:?}");
 
                 let (elem, rest) = elements.uncons().expect("should have one element");
                 match elem {
@@ -2287,7 +2287,7 @@ mod tests {
                     _ => panic!("expected number"),
                 }
 
-                assert!(rest.is_empty());
+                assert!(rest.is_empty(), "{rest:?}");
             }
             _ => panic!("expected array"),
         }
@@ -2318,7 +2318,7 @@ mod tests {
                     _ => panic!("expected number"),
                 }
 
-                assert!(rest3.is_empty());
+                assert!(rest3.is_empty(), "{rest3:?}");
             }
             _ => panic!("expected array"),
         }

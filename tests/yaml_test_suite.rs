@@ -278,7 +278,7 @@ fn yaml_test_suite_conformance() {
         }
         report.push_str("\nNice — remove these lines from the manifest.\n");
     }
-    assert!(report.is_empty(), "{report}");
+    assert!(report.is_empty(), "{report}: {report:?}");
 }
 
 /// The manifest is hand-maintained; keep it honest about the corpus it describes.

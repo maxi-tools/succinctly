@@ -6,6 +6,7 @@ use alloc::vec::Vec;
 /// A writer for incrementally building a bit vector.
 ///
 /// Bits are written from LSB to MSB within each word.
+#[derive(Debug)]
 pub struct BitWriter {
     words: Vec<u64>,
     current_word: u64,
@@ -228,9 +229,9 @@ mod tests {
     #[test]
     fn test_empty() {
         let writer = BitWriter::new();
-        assert!(writer.is_empty());
+        assert!(writer.is_empty(), "{writer:?}");
         let words = writer.finish();
-        assert!(words.is_empty());
+        assert!(words.is_empty(), "{words:?}");
     }
 
     #[test]

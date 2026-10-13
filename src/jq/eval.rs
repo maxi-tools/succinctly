@@ -16096,9 +16096,9 @@ mod tests {
         query!(b"null", "env", QueryResult::Owned(OwnedValue::Object(obj)) => {
             // In std context, env should have at least PATH
             #[cfg(feature = "std")]
-            assert!(!obj.is_empty(), "env should return non-empty object in std context");
+            assert!(!obj.is_empty(), "env should return non-empty object in std context: {obj:?}");
             #[cfg(not(feature = "std"))]
-            assert!(obj.is_empty(), "env should return empty object in no_std context");
+            assert!(obj.is_empty(), "env should return empty object in no_std context: {obj:?}");
         });
     }
 
@@ -16108,9 +16108,9 @@ mod tests {
         query!(b"null", "$ENV", QueryResult::Owned(OwnedValue::Object(obj)) => {
             // In std context, $ENV should have at least PATH
             #[cfg(feature = "std")]
-            assert!(!obj.is_empty(), "$ENV should return non-empty object in std context");
+            assert!(!obj.is_empty(), "$ENV should return non-empty object in std context: {obj:?}");
             #[cfg(not(feature = "std"))]
-            assert!(obj.is_empty(), "$ENV should return empty object in no_std context");
+            assert!(obj.is_empty(), "$ENV should return empty object in no_std context: {obj:?}");
         });
     }
 
@@ -16119,7 +16119,7 @@ mod tests {
         // $ENV.VAR should return the environment variable value
         query!(b"null", "$ENV.PATH", QueryResult::Owned(OwnedValue::String(s)) => {
             #[cfg(feature = "std")]
-            assert!(!s.is_empty(), "PATH should be non-empty");
+            assert!(!s.is_empty(), "PATH should be non-empty: {s:?}");
         });
     }
 
@@ -16141,7 +16141,7 @@ mod tests {
         // $ENV["PATH"] should also work
         query!(b"null", r#"$ENV["PATH"]"#, QueryResult::Owned(OwnedValue::String(s)) => {
             #[cfg(feature = "std")]
-            assert!(!s.is_empty(), "PATH should be non-empty");
+            assert!(!s.is_empty(), "PATH should be non-empty: {s:?}");
         });
     }
 
@@ -16151,7 +16151,7 @@ mod tests {
         // This test uses PATH which should always exist
         query!(b"null", "env(PATH)", QueryResult::Owned(OwnedValue::String(s)) => {
             #[cfg(feature = "std")]
-            assert!(!s.is_empty(), "PATH should be non-empty");
+            assert!(!s.is_empty(), "PATH should be non-empty: {s:?}");
         });
     }
 
@@ -16160,7 +16160,7 @@ mod tests {
         // strenv(VAR) returns the environment variable value as string
         query!(b"null", "strenv(PATH)", QueryResult::Owned(OwnedValue::String(s)) => {
             #[cfg(feature = "std")]
-            assert!(!s.is_empty(), "PATH should be non-empty");
+            assert!(!s.is_empty(), "PATH should be non-empty: {s:?}");
         });
     }
 
@@ -16169,7 +16169,7 @@ mod tests {
         // env.VAR should return the environment variable value (like $ENV.VAR)
         query!(b"null", "env.PATH", QueryResult::Owned(OwnedValue::String(s)) => {
             #[cfg(feature = "std")]
-            assert!(!s.is_empty(), "PATH should be non-empty");
+            assert!(!s.is_empty(), "PATH should be non-empty: {s:?}");
         });
     }
 
@@ -16178,7 +16178,7 @@ mod tests {
         // env["PATH"] should also work (like $ENV["PATH"])
         query!(b"null", r#"env["PATH"]"#, QueryResult::Owned(OwnedValue::String(s)) => {
             #[cfg(feature = "std")]
-            assert!(!s.is_empty(), "PATH should be non-empty");
+            assert!(!s.is_empty(), "PATH should be non-empty: {s:?}");
         });
     }
 
@@ -16240,7 +16240,7 @@ mod tests {
         // Test identity path
         query!(br#"{"a": 1}"#, "path(.)",
             QueryResult::Owned(OwnedValue::Array(arr)) => {
-                assert!(arr.is_empty()); // Identity has no path components
+                assert!(arr.is_empty(), "{arr:?}"); // Identity has no path components
             }
         );
     }
@@ -16311,7 +16311,7 @@ mod tests {
         query!(br#"{"a": 1}"#, "tojsonstream",
             QueryResult::Owned(OwnedValue::Array(arr)) => {
                 // Returns array of [path, value] pairs
-                assert!(!arr.is_empty());
+                assert!(!arr.is_empty(), "{arr:?}");
             }
         );
     }
@@ -16354,15 +16354,21 @@ mod tests {
         // Covers the None / Error / Break / Owned / ManyOwned arms and is_error,
         // which the integration parity tests do not exercise.
         let none: QueryResult<Vec<u64>> = QueryResult::None;
-        assert!(none.collect_owned().is_empty());
+        let _v_none_collect_owned = none.collect_owned();
+        assert!(
+            _v_none_collect_owned.is_empty(),
+            "{_v_none_collect_owned:?}"
+        );
         assert!(!QueryResult::<Vec<u64>>::None.is_error());
 
         let err: QueryResult<Vec<u64>> = QueryResult::Error(EvalError::new("boom"));
         assert!(err.is_error());
-        assert!(err.collect_owned().is_empty());
+        let _v_err_collect_owned = err.collect_owned();
+        assert!(_v_err_collect_owned.is_empty(), "{_v_err_collect_owned:?}");
 
         let brk: QueryResult<Vec<u64>> = QueryResult::Break("lbl".into());
-        assert!(brk.collect_owned().is_empty());
+        let _v_brk_collect_owned = brk.collect_owned();
+        assert!(_v_brk_collect_owned.is_empty(), "{_v_brk_collect_owned:?}");
 
         let owned: QueryResult<Vec<u64>> = QueryResult::Owned(OwnedValue::Int(7));
         assert_eq!(owned.collect_owned(), vec![OwnedValue::Int(7)]);
@@ -17581,7 +17587,7 @@ mod tests {
         // jq 1.7.1 yields no values for a zero step (it does not error)
         query!(b"null", "[range(0; 1; 0)]",
             QueryResult::Owned(OwnedValue::Array(arr)) => {
-                assert!(arr.is_empty());
+                assert!(arr.is_empty(), "{arr:?}");
             }
         );
     }
@@ -17728,7 +17734,7 @@ mod tests {
         // No occurrences returns empty array
         query!(br#""abc""#, r#"indices("xyz")"#,
             QueryResult::Owned(OwnedValue::Array(arr)) => {
-                assert!(arr.is_empty());
+                assert!(arr.is_empty(), "{arr:?}");
             }
         );
     }
@@ -18001,7 +18007,7 @@ mod tests {
         // shuffle of empty array should return empty array
         query!(br"[]", "shuffle",
             QueryResult::Owned(OwnedValue::Array(arr)) => {
-                assert!(arr.is_empty());
+                assert!(arr.is_empty(), "{arr:?}");
             }
         );
     }
@@ -18129,7 +18135,7 @@ mod tests {
         // Empty array returns empty array
         query!(br"[]", "pivot",
             QueryResult::Owned(OwnedValue::Array(arr)) => {
-                assert!(arr.is_empty());
+                assert!(arr.is_empty(), "{arr:?}");
             }
         );
     }
@@ -18139,7 +18145,7 @@ mod tests {
         // Array of empty arrays returns empty array
         query!(br"[[], []]", "pivot",
             QueryResult::Owned(OwnedValue::Array(arr)) => {
-                assert!(arr.is_empty());
+                assert!(arr.is_empty(), "{arr:?}");
             }
         );
     }
@@ -18149,7 +18155,7 @@ mod tests {
         // Array of empty objects returns empty object
         query!(br"[{}, {}]", "pivot",
             QueryResult::Owned(OwnedValue::Object(obj)) => {
-                assert!(obj.is_empty());
+                assert!(obj.is_empty(), "{obj:?}");
             }
         );
     }

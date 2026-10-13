@@ -597,7 +597,7 @@ mod tests {
     #[test]
     fn test_empty() {
         let ef = EliasFano::build(&[]);
-        assert!(ef.is_empty());
+        assert!(ef.is_empty(), "{ef:?}");
         assert_eq!(ef.len(), 0);
         assert_eq!(ef.get(0), None);
 

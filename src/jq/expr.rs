@@ -1343,7 +1343,15 @@ mod tests {
         let prog = Program::from_expr(Expr::identity());
         assert_eq!(prog.expr, Expr::Identity);
         assert!(prog.module.is_none());
-        assert!(prog.imports.is_empty());
-        assert!(prog.includes.is_empty());
+        assert!(
+            prog.imports.is_empty(),
+            "{v_imports:?}",
+            v_imports = prog.imports
+        );
+        assert!(
+            prog.includes.is_empty(),
+            "{v_includes:?}",
+            v_includes = prog.includes
+        );
     }
 }

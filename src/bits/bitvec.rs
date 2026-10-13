@@ -270,7 +270,7 @@ mod tests {
         let bv = BitVec::from_words(vec![], 0);
         assert_eq!(bv.len(), 0);
         assert_eq!(bv.count_ones(), 0);
-        assert!(bv.is_empty());
+        assert!(bv.is_empty(), "{bv:?}");
     }
 
     #[test]
@@ -710,7 +710,7 @@ mod tests {
         assert_eq!(bv.len(), 0);
         assert_eq!(bv.count_ones(), 0);
         assert_eq!(bv.count_zeros(), 0);
-        assert!(bv.is_empty());
+        assert!(bv.is_empty(), "{bv:?}");
 
         // Rank operations
         assert_eq!(bv.rank1(0), 0);

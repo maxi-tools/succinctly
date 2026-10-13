@@ -212,9 +212,9 @@ mod tests {
     #[test]
     fn test_collect_system_info() {
         let info = collect_system_info();
-        assert!(!info.cpu.is_empty());
+        assert!(!info.cpu.is_empty(), "{v_cpu:?}", v_cpu = info.cpu);
         assert!(info.cpu_cores > 0);
-        assert!(!info.os.is_empty());
+        assert!(!info.os.is_empty(), "{v_os:?}", v_os = info.os);
     }
 
     #[test]
