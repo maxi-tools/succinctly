@@ -68,7 +68,7 @@ fn run_validate_file(file_path: &str, extra_args: &[&str]) -> Result<(String, St
 fn test_valid_json_exit_code_0() -> Result<()> {
     let (stdout, stderr, exit_code) = run_validate_stdin(r#"{"key": "value"}"#, &[])?;
     assert_eq!(exit_code, 0, "stdout: {stdout}, stderr: {stderr}");
-    assert!(stdout.is_empty(), "stdout should be empty for valid JSON");
+    assert!(stdout.is_empty(), "stdout should be empty for valid JSON: {stdout:?}");
     Ok(())
 }
 
@@ -83,7 +83,7 @@ fn test_invalid_json_exit_code_1() -> Result<()> {
 fn test_quiet_mode_no_output() -> Result<()> {
     let (stdout, stderr, exit_code) = run_validate_stdin(r#"{"invalid": }"#, &["--quiet"])?;
     assert_eq!(exit_code, 1);
-    assert!(stdout.is_empty(), "stdout should be empty in quiet mode");
+    assert!(stdout.is_empty(), "stdout should be empty in quiet mode: {stdout:?}");
     // The binary is invoked directly (not via `cargo run`), so its stderr carries
     // no cargo output to filter — quiet mode must produce a truly empty stderr.
     assert!(

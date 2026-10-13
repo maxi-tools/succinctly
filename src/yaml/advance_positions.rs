@@ -842,7 +842,7 @@ mod tests {
     #[test]
     fn test_empty() {
         let ap = AdvancePositions::build_unchecked(&[], 0);
-        assert!(ap.is_empty());
+        assert!(ap.is_empty(), "{ap:?}");
         assert_eq!(ap.len(), 0);
         assert_eq!(ap.get(0), None);
 

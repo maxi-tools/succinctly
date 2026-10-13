@@ -2554,14 +2554,14 @@ mod tests {
         // "(()())" = 0b001011
         let bp = BalancedParens::new(vec![0b001011u64], 6);
         assert_eq!(bp.len(), 6);
-        assert!(!bp.is_empty());
+        assert!(!bp.is_empty(), "{bp:?}");
     }
 
     #[test]
     fn test_balanced_parens_empty() {
         let bp = BalancedParens::new(vec![], 0);
         assert_eq!(bp.len(), 0);
-        assert!(bp.is_empty());
+        assert!(bp.is_empty(), "{bp:?}");
     }
 
     #[test]
@@ -3194,7 +3194,7 @@ mod tests {
     #[test]
     fn test_empty() {
         let bp = BalancedParens::new(vec![], 0);
-        assert!(bp.is_empty());
+        assert!(bp.is_empty(), "{bp:?}");
         assert_eq!(bp.len(), 0);
         assert_eq!(bp.find_close(0), None);
         assert_eq!(bp.find_open(0), None);

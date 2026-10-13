@@ -178,7 +178,7 @@ mod tests {
 
         assert_eq!(index.row_count(), 0);
         assert_eq!(index.marker_count(), 0);
-        assert!(index.is_empty());
+        assert!(index.is_empty(), "{index:?}");
     }
 
     #[test]

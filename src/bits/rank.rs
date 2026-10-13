@@ -571,7 +571,7 @@ mod tests {
         fn test_builder_empty() {
             let builder = CacheAlignedL1L2::builder(0);
             let result = builder.build();
-            assert!(result.is_empty());
+            assert!(result.is_empty(), "{result:?}");
             assert_eq!(result.len(), 0);
         }
 

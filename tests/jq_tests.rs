@@ -252,7 +252,7 @@ fn test_iterate_object_values() {
 fn test_iterate_empty_array() {
     query!(br"[]", ".[]",
         QueryResult::Many(values) => {
-            assert!(values.is_empty());
+            assert!(values.is_empty(), "{values:?}");
         }
     );
 }
@@ -261,7 +261,7 @@ fn test_iterate_empty_array() {
 fn test_iterate_empty_object() {
     query!(br"{}", ".[]",
         QueryResult::Many(values) => {
-            assert!(values.is_empty());
+            assert!(values.is_empty(), "{values:?}");
         }
     );
 }
@@ -324,7 +324,7 @@ fn test_slice_empty_result() {
     // Out-of-range slice yields an empty array, not an empty stream.
     query!(br"[0, 1, 2]", ".[5:10]",
         QueryResult::Owned(OwnedValue::Array(values)) => {
-            assert!(values.is_empty());
+            assert!(values.is_empty(), "{values:?}");
         }
     );
 }
@@ -882,7 +882,7 @@ fn test_reverse_on_null_returns_empty_array() {
     // jq: null | reverse => []
     query!(b"null", "reverse",
         QueryResult::Owned(OwnedValue::Array(arr)) => {
-            assert!(arr.is_empty());
+            assert!(arr.is_empty(), "{arr:?}");
         }
     );
 }

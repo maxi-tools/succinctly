@@ -101,7 +101,7 @@ const PATTERNS: &[&str] = &[
 fn validate_valid_ascii_stdin_exit_0() -> Result<()> {
     let (stdout, stderr, code) = run_validate_stdin(b"Hello, world!\n", &[])?;
     assert_eq!(code, 0, "stderr: {stderr}");
-    assert!(stdout.is_empty(), "stdout should be empty on success");
+    assert!(stdout.is_empty(), "stdout should be empty on success: {stdout:?}");
     Ok(())
 }
 
@@ -167,7 +167,7 @@ fn validate_overlong_encoding() -> Result<()> {
     // 0xC0 0x80 is an overlong (2-byte) encoding of U+0000.
     let (_, stderr, code) = run_validate_stdin(&[0xC0, 0x80], &[])?;
     assert_eq!(code, 1);
-    assert!(!stderr.is_empty(), "expected an error message");
+    assert!(!stderr.is_empty(), "expected an error message: {stderr:?}");
     Ok(())
 }
 
@@ -185,7 +185,7 @@ fn validate_out_of_range_codepoint() -> Result<()> {
     // 0xF4 0x90 0x80 0x80 would encode U+110000, above the U+10FFFF maximum.
     let (_, stderr, code) = run_validate_stdin(&[0xF4, 0x90, 0x80, 0x80], &[])?;
     assert_eq!(code, 1);
-    assert!(!stderr.is_empty(), "expected an error message");
+    assert!(!stderr.is_empty(), "expected an error message: {stderr:?}");
     Ok(())
 }
 
@@ -197,7 +197,7 @@ fn validate_out_of_range_codepoint() -> Result<()> {
 fn validate_quiet_mode_suppresses_output() -> Result<()> {
     let (stdout, stderr, code) = run_validate_stdin(&[0x80], &["--quiet"])?;
     assert_eq!(code, 1);
-    assert!(stdout.is_empty(), "stdout should be empty");
+    assert!(stdout.is_empty(), "stdout should be empty: {stdout:?}");
     assert!(
         stderr.is_empty(),
         "stderr should be empty in quiet mode, got: {stderr}"
@@ -209,7 +209,7 @@ fn validate_quiet_mode_suppresses_output() -> Result<()> {
 fn validate_no_color_has_no_ansi() -> Result<()> {
     let (_, stderr, code) = run_validate_stdin(&[0x80], &["--no-color"])?;
     assert_eq!(code, 1);
-    assert!(!stderr.is_empty());
+    assert!(!stderr.is_empty(), "{stderr:?}");
     assert!(
         !stderr.contains('\x1b'),
         "no-color output must not contain ANSI escapes: {stderr:?}"
@@ -271,7 +271,7 @@ fn validate_nonexistent_file_is_io_error() -> Result<()> {
     let (_, stderr, code) =
         run_validate_files(&["/no/such/path/utf8_does_not_exist.txt"], &["--no-color"])?;
     assert_eq!(code, 2, "missing file should yield the IO_ERROR exit code");
-    assert!(!stderr.is_empty(), "expected an error message");
+    assert!(!stderr.is_empty(), "expected an error message: {stderr:?}");
     Ok(())
 }
 

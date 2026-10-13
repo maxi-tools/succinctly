@@ -696,7 +696,7 @@ mod index_structure_tests {
     #[test]
     fn test_empty_structure() {
         let bp = BalancedParens::new(vec![], 0);
-        assert!(bp.is_empty());
+        assert!(bp.is_empty(), "{bp:?}");
         assert_eq!(bp.find_close(0), None);
         assert_eq!(bp.find_open(0), None);
         assert_eq!(bp.excess(0), 0);

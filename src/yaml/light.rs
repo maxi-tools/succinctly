@@ -5067,7 +5067,7 @@ mod tests {
         // First document should be a mapping
         match first_doc(root) {
             YamlValue::Mapping(fields) => {
-                assert!(!fields.is_empty());
+                assert!(!fields.is_empty(), "{fields:?}");
             }
             other => panic!("expected mapping, got {other:?}"),
         }
@@ -5084,7 +5084,7 @@ mod tests {
 
         // First document should be a mapping
         if let YamlValue::Mapping(fields) = first_doc(root) {
-            assert!(!fields.is_empty());
+            assert!(!fields.is_empty(), "{fields:?}");
             if let Some((field, _rest)) = fields.uncons() {
                 // Key should be "name"
                 if let YamlValue::String(k) = field.key() {
@@ -5855,7 +5855,7 @@ mod tests {
 
         if let YamlValue::Mapping(fields) = first_doc(root) {
             if let Some(YamlValue::Mapping(data_fields)) = fields.find("data") {
-                assert!(data_fields.is_empty(), "expected empty mapping");
+                assert!(data_fields.is_empty(), "expected empty mapping: {data_fields:?}");
             } else {
                 panic!("expected mapping for data");
             }
