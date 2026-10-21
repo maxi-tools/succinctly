@@ -103,7 +103,14 @@ jobs:
         run: |
           set -euo pipefail
           export PATH="/opt/homebrew/bin:$HOME/.cargo/bin:$PATH"
-          git config --global url."https://x-access-token:${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
+          cfg="${GIT_CONFIG_GLOBAL:-}"
+          if [ -z "$cfg" ] || [ "$cfg" = "$HOME/.gitconfig" ]; then
+            cfg="$RUNNER_TEMP/gitconfig-ci"
+            [ -f "$cfg" ] || printf '[safe]\n\tdirectory = *\n' > "$cfg"
+            echo "GIT_CONFIG_GLOBAL=$cfg" >> "$GITHUB_ENV"
+          fi
+          export GIT_CONFIG_GLOBAL="$cfg"
+          git config --file "$cfg" --replace-all url."https://x-access-token:${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
           if ! command -v maxi-lint >/dev/null 2>&1 && command -v cargo >/dev/null 2>&1; then
             CARGO_NET_GIT_FETCH_WITH_CLI=true \
               cargo install --git https://github.com/maxi-tools/maxi-lint.git maxi-lint --quiet
