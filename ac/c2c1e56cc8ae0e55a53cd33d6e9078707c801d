@@ -1,0 +1,14 @@
+.github/workflows/maxi-review.yml
+  h_cebe5b6d461c32 106-108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "acc2c1e56cc8ae0e55a53cd33d6e9078707c801d",
+  "prompts": {},
+  "humans": {
+    "h_cebe5b6d461c32": {
+      "author": "Maxi Boch <874012+maxiboch@users.noreply.github.com>"
+    }
+  }
+}
